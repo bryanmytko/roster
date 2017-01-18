@@ -20,8 +20,6 @@ module WowApi
             ilvl_display: response["items"]["averageItemLevel"],
             ilvl_equipped: response["items"]["averageItemLevelEquipped"]
           )
-        else
-          debugger
         end
       end
     end
