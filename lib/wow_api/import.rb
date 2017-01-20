@@ -1,57 +1,27 @@
 module WowApi
+  DEFAULT_REGION = "en_US"
+
   class Import
-    def self.character(name, realm, region = nil)
-      region = region || "en_US"
-      client.request(:get, "character/#{realm}/#{name}")
+    def self.character(name, realm)
+      response = client.character(name, realm)
     end
 
-    def self.update_guild_ilvl(realm, region = nil)
-      region = region || "en_US"
-
+    def self.update_guild_ilvl(realm)
       Member.all.each do |member|
-        response = client.request(
-          :get,
-          "character/#{realm}/#{member.name}",
-          { fields: "items" }
-        )
-
-        if response["items"]
-          member.update(
-            ilvl_display: response["items"]["averageItemLevel"],
-            ilvl_equipped: response["items"]["averageItemLevelEquipped"]
-          )
-        end
+        response = client.character(member.name, realm, "items")
+        member.update_ilvl(response) if response["items"]
       end
     end
 
-    def self.update_member_ilvl(name, realm, region = nil)
-      region = region || "en_US"
-
+    def self.update_member_ilvl(name, realm)
       member = Member.find_by(name: name)
 
-      response = client.request(
-        :get,
-        "character/#{realm}/#{member.name}",
-        { fields: "items" }
-      )
-
-      if response["items"]
-        member.update(
-          ilvl_display: response["items"]["averageItemLevel"],
-          ilvl_equipped: response["items"]["averageItemLevelEquipped"]
-        )
-      end
-
+      response = client.character(name, realm, "items")
+      member.update_ilvl(response) if response["items"]
     end
 
-    def self.guild_members(name, realm, region = nil)
-      region = region || "en_US"
-
-      guild = client.request(
-        :get,
-        "guild/#{realm}/#{name}",
-        { fields: "members" }
-      )
+    def self.guild_members(guild_name, realm)
+      guild = client.guild(guild_name, realm, "members")
 
       guild["members"].each do |member|
         Member.find_or_create_by(

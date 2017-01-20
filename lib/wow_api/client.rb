@@ -6,8 +6,25 @@ module WowApi
   API_KEY = ENV["API_KEY"]
 
   class Client
-    def initialize
+    def initialize; end
+
+    def character(name, realm, fields = "")
+      request(
+        :get,
+        "character/#{realm}/#{name}",
+        { fields: fields }
+      )
     end
+
+    def guild(name, realm, fields = "")
+      request(
+        :get,
+        "guild/#{realm}/#{name}",
+        { fields: fields }
+      )
+    end
+
+    private
 
     def request(method, path, query = {})
       case method
@@ -17,8 +34,6 @@ module WowApi
         HTTParty.get(URI.encode(ENDPOINT + path), options)
       end
     end
-
-    private
 
     def apikey
       raise StandardError.new("No API key set!") unless API_KEY
