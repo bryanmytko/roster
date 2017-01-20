@@ -1,7 +1,7 @@
 class UpdateIlvls < ActiveJob::Base
   queue_as :default
 
-  def perform
-    WowApi::Import.update_guild_ilvl("mal'ganis")
+  def perform(realm)
+    WowApi::Import.update_guild_ilvl(realm)
   end
 end
