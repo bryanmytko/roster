@@ -24,6 +24,26 @@ module WowApi
       end
     end
 
+    def self.update_member_ilvl(name, realm, region = nil)
+      region = region || "en_US"
+
+      member = Member.find_by(name: name)
+
+      response = client.request(
+        :get,
+        "character/#{realm}/#{member.name}",
+        { fields: "items" }
+      )
+
+      if response["items"]
+        member.update(
+          ilvl_display: response["items"]["averageItemLevel"],
+          ilvl_equipped: response["items"]["averageItemLevelEquipped"]
+        )
+      end
+
+    end
+
     def self.guild_members(name, realm, region = nil)
       region = region || "en_US"
 
