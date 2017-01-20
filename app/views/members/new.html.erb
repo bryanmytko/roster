@@ -1,0 +1,7 @@
+<%= form_for @member, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
+  <%= f.label "name" %>
+  <%= f.text_field :name %>
+  <%= f.label "realm" %>
+  <%= f.text_field :realm %>
+  <%= f.submit "Create" %>
+<% end %>
