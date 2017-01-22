@@ -4,6 +4,7 @@
     <table class="table table-striped table-hover ">
       <thead>
         <tr>
+          <!--<th></th>-->
           <th>Name</th>
           <th>Equipped ilvl</th>
           <th>Display ilvl</th>
@@ -13,6 +14,11 @@
         <% @members.each do |member| %>
           <% if member.ilvl_display %>
             <tr <%= tr_color(member) %>>
+              <!-- <td> -->
+                <%#= image_tag(
+                  thumbnail_url + member.thumbnail, size: "40"
+                )%>
+              <!-- </td> -->
               <td><%= member.name %></td>
               <td><%= member.ilvl_equipped %></td>
               <td><%= member.ilvl_display %></td>

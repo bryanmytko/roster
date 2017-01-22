@@ -14,3 +14,14 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//
+// function testImage(url) {
+//   var tester = new Image();
+//   tester.addEventListener('load', imageFound);
+//   tester.addEventListener('error', imageNotFound);
+//   tester.src = url;
+// }
+//
+// function imageNotFound() {
+//   alert('That image was not found.');
+// }

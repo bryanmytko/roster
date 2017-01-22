@@ -11,7 +11,7 @@ class MembersController < ApplicationController
 
   def create
     member = Member.create(member_params)
-    WowApi::Import.update_member_ilvl(member.name, member.realm)
+    WowApi::Import.single_member(member.name, member.realm)
     redirect_to :root
   end
 
