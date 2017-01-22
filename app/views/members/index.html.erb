@@ -19,7 +19,9 @@
                   thumbnail_url + member.thumbnail, size: "40"
                 )%>
               <!-- </td> -->
-              <td><%= member.name %></td>
+              <td>
+                <%= link_to member.name, armory_url(member)  %>
+              </td>
               <td><%= member.ilvl_equipped %></td>
               <td><%= member.ilvl_display %></td>
             </tr>

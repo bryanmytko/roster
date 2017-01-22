@@ -3,7 +3,16 @@ module MembersHelper
   WARNING = 865
 
   def thumbnail_url
-    "http://#{region}.battle.net/static-render/#{region}/"
+    "#{battlenet_url}/static-render/#{region}/"
+  end
+
+  def armory_url(member)
+    "#{battlenet_url}/wow/en/character/" + \
+      "#{member.realm}/#{member.name}/simple"
+  end
+
+  def battlenet_url
+    "http://#{region}.battle.net"
   end
 
   def tr_color(member)
